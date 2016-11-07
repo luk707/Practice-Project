@@ -5,7 +5,6 @@
         "removeComments": true
     },
     "files": [
-        "src/ts/Game.ts",
         "src/ts/Game.ts"
     ]
 }

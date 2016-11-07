@@ -26,10 +26,6 @@ module.exports = function(grunt) {
             tsc: {
                 command: "tsc",
                 stdout: true
-            },
-            install: {
-                command: "npm i typescript -g;",
-                stdout: true
             }
         },
         watch: {
@@ -46,5 +42,4 @@ module.exports = function(grunt) {
 
     grunt.registerTask("build", ["clean", "copy", "exec:tsc", "browserify"]);
     grunt.registerTask("default", ["build", "watch"]);
-    grunt.registerTask("install", ["exec:install"]);
 };
