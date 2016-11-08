@@ -45,7 +45,12 @@ view.gl.uniformMatrix4fv(
 
 let time: number = 0;
 
-let grid: Primatives.Axes = new Primatives.Axes();
+let axes: Primatives.Axes = new Primatives.Axes();
+let grid: Primatives.Grid = new Primatives.Grid(4);
+
+let box: Primatives.Box = new Primatives.Box();
+box.transform.position = new Vector(1, 0, 0);
+box.transform.scale = new Vector(1, 1, 2);
 
 setInterval(() => {
     view.gl.clear(view.gl.COLOR_BUFFER_BIT | view.gl.DEPTH_BUFFER_BIT);
@@ -58,5 +63,11 @@ setInterval(() => {
         false,
         viewMatrix.ToFloat32Array());
 
+    view.DrawObject(box, shaderProgram);
+
     view.DrawObject(grid, shaderProgram);
+
+    view.gl.clear(view.gl.DEPTH_BUFFER_BIT);
+
+    view.DrawObject(axes, shaderProgram);
 }, 1000 / 30);
