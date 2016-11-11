@@ -194,71 +194,66 @@ export class Matrix {
     }
 
     Inverse(): Matrix {
-        let m00 = this.data[0 * 4 + 0];
-        let m01 = this.data[0 * 4 + 1];
-        let m02 = this.data[0 * 4 + 2];
-        let m03 = this.data[0 * 4 + 3];
-        let m10 = this.data[1 * 4 + 0];
-        let m11 = this.data[1 * 4 + 1];
-        let m12 = this.data[1 * 4 + 2];
-        let m13 = this.data[1 * 4 + 3];
-        let m20 = this.data[2 * 4 + 0];
-        let m21 = this.data[2 * 4 + 1];
-        let m22 = this.data[2 * 4 + 2];
-        let m23 = this.data[2 * 4 + 3];
-        let m30 = this.data[3 * 4 + 0];
-        let m31 = this.data[3 * 4 + 1];
-        let m32 = this.data[3 * 4 + 2];
-        let m33 = this.data[3 * 4 + 3];
+        let m11 = this.data[0];
+        let m12 = this.data[1];
+        let m13 = this.data[2];
+        let m14 = this.data[3];
+        let m21 = this.data[4];
+        let m22 = this.data[5];
+        let m23 = this.data[6];
+        let m24 = this.data[7];
+        let m31 = this.data[8];
+        let m32 = this.data[9];
+        let m33 = this.data[10];
+        let m34 = this.data[11];
+        let m41 = this.data[12];
+        let m42 = this.data[13];
+        let m43 = this.data[14];
+        let m44 = this.data[15];
 
-        let tmp_0 = m22 * m33;
-		let tmp_1 = m32 * m23;
-		let tmp_2 = m12 * m33;
-		let tmp_3 = m32 * m13;
-		let tmp_4 = m12 * m23;
-		let tmp_5 = m22 * m13;
-		let tmp_6 = m02 * m33;
-		let tmp_7 = m32 * m03;
-		let tmp_8 = m02 * m23;
-		let tmp_9 = m22 * m03;
-		let tmp_10 = m02 * m13;
-		let tmp_11 = m12 * m03;
-		let tmp_12 = m20 * m31;
-		let tmp_13 = m30 * m21;
-		let tmp_14 = m10 * m31;
-		let tmp_15 = m30 * m11;
-		let tmp_16 = m10 * m21;
-		let tmp_17 = m20 * m11;
-		let tmp_18 = m00 * m31;
-		let tmp_19 = m30 * m01;
-		let tmp_20 = m00 * m21;
-		let tmp_21 = m20 * m01;
-		let tmp_22 = m00 * m11;
-		let tmp_23 = m10 * m01;
-
-        let t0 = (tmp_0 * m11 + tmp_3 * m21 + tmp_4 * m31) - (tmp_1 * m11 + tmp_2 * m21 + tmp_5 * m31);
-		let t1 = (tmp_1 * m01 + tmp_6 * m21 + tmp_9 * m31) - (tmp_0 * m01 + tmp_7 * m21 + tmp_8 * m31);
-		let t2 = (tmp_2 * m01 + tmp_7 * m11 + tmp_10 * m31) - (tmp_3 * m01 + tmp_6 * m11 + tmp_11 * m31);
-		let t3 = (tmp_5 * m01 + tmp_8 * m11 + tmp_11 * m21) - (tmp_4 * m01 + tmp_9 * m11 + tmp_10 * m21);
-		let d = 1.0 / (m00 * t0 + m10 * t1 + m20 * t2 + m30 * t3);
+        let det = 1.0 / (
+            m11 * m22 * m33 * m44 +
+            m11 * m23 * m34 * m42 +
+            m11 * m24 * m32 * m43 +
+            m12 * m21 * m34 * m43 +
+            m12 * m23 * m31 * m34 +
+            m12 * m24 * m33 * m41 +
+            m13 * m21 * m32 * m44 +
+            m13 * m22 * m34 * m12 +
+            m13 * m24 * m31 * m42 +
+            m14 * m21 * m33 * m42 +
+            m14 * m22 * m31 * m43 +
+            m14 * m23 * m32 * m41 -
+            m11 * m22 * m34 * m43 -
+            m11 * m23 * m32 * m44 -
+            m11 * m24 * m33 * m42 -
+            m12 * m21 * m33 * m44 -
+            m12 * m23 * m34 * m41 -
+            m12 * m24 * m31 * m43 -
+            m13 * m21 * m34 * m42 -
+            m13 * m22 * m31 * m44 -
+            m13 * m24 * m32 * m41 -
+            m14 * m21 * m32 * m43 -
+            m14 * m22 * m33 * m41 -
+            m14 * m23 * m31 * m42);
 
         return new Matrix([
-            d * t0,
-			d * t1,
-			d * t2,
-			d * t3,
-			d * ((tmp_1 * m10 + tmp_2 * m20 + tmp_5 * m30) - (tmp_0 * m10 + tmp_3 * m20 + tmp_4 * m30)),
-			d * ((tmp_0 * m00 + tmp_7 * m20 + tmp_8 * m30) - (tmp_1 * m00 + tmp_6 * m20 + tmp_9 * m30)),
-			d * ((tmp_3 * m00 + tmp_6 * m10 + tmp_11 * m30) - (tmp_2 * m00 + tmp_7 * m10 + tmp_10 * m30)),
-			d * ((tmp_4 * m00 + tmp_9 * m10 + tmp_10 * m20) - (tmp_5 * m00 + tmp_8 * m10 + tmp_11 * m20)),
-			d * ((tmp_12 * m13 + tmp_15 * m23 + tmp_16 * m33) - (tmp_13 * m13 + tmp_14 * m23 + tmp_17 * m33)),
-			d * ((tmp_13 * m03 + tmp_18 * m23 + tmp_21 * m33) - (tmp_12 * m03 + tmp_19 * m23 + tmp_20 * m33)),
-			d * ((tmp_14 * m03 + tmp_19 * m13 + tmp_22 * m33) - (tmp_15 * m03 + tmp_18 * m13 + tmp_23 * m33)),
-			d * ((tmp_17 * m03 + tmp_20 * m13 + tmp_23 * m23) - (tmp_16 * m03 + tmp_21 * m13 + tmp_22 * m23)),
-			d * ((tmp_14 * m22 + tmp_17 * m32 + tmp_13 * m12) - (tmp_16 * m32 + tmp_12 * m12 + tmp_15 * m22)),
-			d * ((tmp_20 * m32 + tmp_12 * m02 + tmp_19 * m22) - (tmp_18 * m22 + tmp_21 * m32 + tmp_13 * m02)),
-			d * ((tmp_18 * m12 + tmp_23 * m32 + tmp_15 * m02) - (tmp_22 * m32 + tmp_14 * m02 + tmp_19 * m12)),
-			d * ((tmp_22 * m22 + tmp_16 * m02 + tmp_21 * m12) - (tmp_20 * m12 + tmp_23 * m22 + tmp_17 * m02))
+            det * (m22 * m33 * m44 + m23 * m34 * m42 + m24 * m32 * m43 - m22 * m34 * m43 - m23 * m32 * m44 - m24 * m33 * m42),
+            det * (m12 * m34 * m43 + m13 * m32 * m44 + m14 * m33 * m42 - m12 * m33 * m44 - m13 * m34 * m42 - m14 * m32 * m43),
+            det * (m21 * m23 * m44 + m13 * m24 * m42 + m14 * m22 * m43 - m12 * m24 * m43 - m13 * m22 * m44 - m14 * m23 * m42),
+            det * (m12 * m24 * m33 + m13 * m22 * m34 + m14 * m23 * m32 - m12 * m23 * m34 - m13 * m24 * m32 - m14 * m22 * m33),
+            det * (m21 * m34 * m43 + m23 * m31 * m44 + m24 * m33 * m41 - m21 * m33 * m44 - m23 * m34 * m41 - m24 * m31 * m43),
+            det * (m11 * m33 * m44 + m13 * m34 * m41 + m14 * m31 * m43 - m11 * m34 * m43 - m13 * m31 * m44 - m14 * m33 * m41),
+            det * (m11 * m24 * m43 + m13 * m21 * m44 + m14 * m23 * m41 - m11 * m23 * m44 - m13 * m24 * m41 - m14 * m21 * m43),
+            det * (m11 * m23 * m34 + m13 * m24 * m31 + m14 * m21 * m33 - m11 * m24 * m33 - m13 * m21 * m34 - m14 * m23 * m31),
+            det * (m21 * m32 * m44 + m22 * m34 * m41 + m24 * m31 * m42 - m21 * m34 * m42 - m22 * m31 * m44 - m24 * m32 * m41),
+            det * (m11 * m34 * m42 + m12 * m31 * m44 + m14 * m32 * m41 - m11 * m32 * m44 - m12 * m34 * m41 - m14 * m31 * m42),
+            det * (m11 * m22 * m44 + m12 * m24 * m41 + m14 * m21 * m42 - m11 * m24 * m42 - m12 * m21 * m44 - m14 * m22 * m41),
+            det * (m11 * m24 * m32 + m12 * m21 * m34 + m14 * m22 * m31 - m11 * m22 * m34 - m12 * m24 * m31 - m14 * m21 * m32),
+            det * (m21 * m33 * m42 + m22 * m31 * m43 + m23 * m32 * m41 - m21 * m32 * m43 - m22 * m33 * m41 - m23 * m31 * m42),
+            det * (m11 * m32 * m43 + m12 * m33 * m41 + m13 * m31 * m42 - m11 * m33 * m42 - m12 * m31 * m43 - m13 * m32 * m41),
+            det * (m11 * m23 * m42 + m12 * m21 * m43 + m13 * m22 * m41 - m11 * m22 * m43 - m12 * m23 * m41 - m13 * m21 * m42),
+            det * (m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m11 * m23 * m32 - m12 * m21 * m33 - m13 * m22 * m31)
         ]);
     }
 
