@@ -1,5 +1,6 @@
 * {
     font-family: sans-serif;
+    color: white;
 }
 
 #GameView
@@ -9,6 +10,15 @@
 
 h1
 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 40pt;
+}
+
+html {
+    background: blue; 
+    background: -webkit-linear-gradient(#0066FF, #0CDBFF); 
+    height: 100vh;
+}
+
+canvas {
+    border: 1px solid black;
 }
