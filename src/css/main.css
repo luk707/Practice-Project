@@ -1,14 +1,38 @@
 * {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
+    color: white;
 }
 
-#GameView
-{
-    width: 100%;
+html {
+    background: blue; 
+    background: -webkit-linear-gradient(#0CB7E8,#00FFD5); 
+    height: 100vh;
 }
 
-h1
-{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+}
+
+h1 {
+    position: absolute;
     font-size: 40pt;
+    font-weight: 300;
+    text-transform: uppercase;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+}
+
+canvas {
+    width: 100%;
+    position: relative;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 100vh;
+    z-index: -1;
 }
