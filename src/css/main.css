@@ -1,25 +1,5 @@
-* {
-    font-family: 'Roboto', sans-serif;
-    color: white;
-}
-
-html {
-    background: blue; 
-    background: -webkit-linear-gradient(#0CB7E8,#00FFD5); 
-    height: 100vh;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    overflow-y: hidden;
-}
-
-h1 {
+.infront {
     position: absolute;
-    font-size: 40pt;
-    font-weight: 300;
-    text-transform: uppercase;
     top: 0;
     right: 0;
     left: 0;
@@ -35,4 +15,10 @@ canvas {
     right: 0px;
     height: 100vh;
     z-index: -1;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
 }
