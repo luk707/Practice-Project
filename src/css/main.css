@@ -4,6 +4,15 @@
     right: 0;
     left: 0;
     text-align: center;
+    color: white;
+}
+
+.infront > a {
+    color: white;
+}
+
+.infront > a:hover {
+    color: lightgray;
 }
 
 canvas {
