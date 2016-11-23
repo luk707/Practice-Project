@@ -141,7 +141,7 @@ export class GameView {
 
         return lightingProgram;
     }
-
+    
     CreateBasicProgram(): WebGLProgram {
         let vertexShaderSource: string = [
             "attribute vec3 position;",
