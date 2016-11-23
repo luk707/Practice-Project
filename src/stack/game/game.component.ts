@@ -87,8 +87,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
     private HandleResize() {
         // Get width and height from the DOM
-        let width: number = this.view.canvas.clientWidth;
-        let height: number = this.view.canvas.clientHeight;
+        let width: number = this.view.canvas.clientWidth * window.devicePixelRatio;
+        let height: number = this.view.canvas.clientHeight * window.devicePixelRatio;
         // Set width and height of viewport and elemtn
         this.view.gl.viewport(0, 0, width, height);
         this.view.canvas.width = width;
