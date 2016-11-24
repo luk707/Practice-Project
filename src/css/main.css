@@ -5,6 +5,7 @@
     left: 0;
     text-align: center;
     color: white;
+    height:100%;
 }
 
 .infront > a {
@@ -37,9 +38,6 @@ body {
 
 
 /*stevens shit dont touch*/      
-html, body, .container {
-    height:100%;
-}
 
 .container {
     display:table;

@@ -50,6 +50,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
             Math.sin(this.time / 500) * 5 ,
             2,
             Math.cos(this.time / 500) * 5);
+            //noone loves tan feelsbadman ;-;
     }
 
     private Render() {
