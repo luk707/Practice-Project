@@ -29,5 +29,41 @@ canvas {
 body {
     margin: 0;
     padding: 0;
-    overflow-y: hidden;
+    /*overflow-y: hidden;*/
+    background-color: mediumpurple;
 }
+
+
+
+
+/*stevens shit dont touch*/      
+html, body, .container {
+    height:100%;
+}
+
+.container {
+    display:table;
+}
+
+.vertical-center-row {
+    display:table-cell;
+    vertical-align: middle;
+    text-align:center;
+}
+
+.color {
+    color: black;
+}
+
+
+.grow { 
+    transition: all .2s ease-in-out; 
+}
+
+.grow:hover { 
+    transform: scale(1.1); 
+}
+
+
+
+/*end of stevens shit u can touch again*/
