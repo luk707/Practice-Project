@@ -1,7 +1,17 @@
 <div>
     <game-view></game-view>
-    <div class="infront">
-        <a routerLink="/">Back</a>
-        <h2>{{score}}</h2>
+    <div class="ui">
+        <div class="row row-centered">
+            <div class="col-xs col-centered">
+                <span class="title">{{score}}</span>
+            </div>
+        </div>
+        <div class="icon-row row row-centered">
+            <div class="icon-col col-centered">
+                <a class="center-button" routerLink="/">
+                    <span class="grow icon-sm glyphicon glyphicon-home" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,9 +1,34 @@
 <div>
     <game-view></game-view>
-    <div class="container infront">
-        <div class="vertical-center-row">
-            <div class = "title">STACK</div>
-            <a class = "centre-button" routerLink="/play"><img class="grow" src="Button.png" width="200px"></a>
+    <div class="ui">
+        <div class="row row-centered">
+            <div class="col-xs col-centered">
+                <span class="title">STACK</span>
+            </div>
+        </div>
+        <div class="play-row row row-centered">
+            <div class="play-col col-centered">
+                <a class="center-button" routerLink="/play">
+                    <img class="grow" src="assets/play-icon.png" width="200px">
+                </a>
+            </div>
+        </div>
+        <div class="icon-row row row-centered">
+            <div class="icon-col col-centered">
+                <a class="center-button" routerLink="/leaderboard">
+                    <span class="grow icon-sm glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="icon-col col-centered">
+                <a class="center-button" routerLink="/share">
+                    <span class="grow icon-sm glyphicon glyphicon-share" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="icon-col col-centered">
+                <a class="center-button" routerLink="/help">
+                    <span class="grow icon-sm glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
