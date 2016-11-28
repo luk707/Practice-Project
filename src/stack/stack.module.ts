@@ -7,13 +7,15 @@ import {routing, appRoutingProviders} from './stack.routing';
 import {HomeComponent} from './home/home.component';
 import {GameViewComponent} from './game-view/game-view.component';
 import {GameComponent} from './game/game.component';
+import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 
 @NgModule({
     declarations: [
         StackComponent,
         HomeComponent,
         GameComponent,
-        GameViewComponent
+        GameViewComponent,
+        LeaderboardComponent
     ],
     imports: [
         BrowserModule,
