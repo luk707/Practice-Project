@@ -40,7 +40,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.axes = new Engine.Primatives.Axes();
         this.grid = new Engine.Primatives.Grid(4);
         this.box = new Engine.Primatives.Box(this.view.gl);
-        this.monkey = new Engine.Model(require("../../models/monkey"), this.view.gl);
+        this.monkey = new Engine.Model(require("../../models/dice"), this.view.gl);
         // Set position and scale of the box
         this.box.transform.position = new Engine.Vector(1, 0, 0);
         this.box.transform.scale = new Engine.Vector(1, 1, 2);

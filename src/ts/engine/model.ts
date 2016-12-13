@@ -75,6 +75,50 @@ export class Model implements Drawable {
                     index += 9;
                     this.triangleCount += 2;
                     break;
+                case 41:
+                    this.vertexData.push(
+                        model.vertices[(model.faces[index + 1] * 3) + 0],
+                        model.vertices[(model.faces[index + 1] * 3) + 1],
+                        model.vertices[(model.faces[index + 1] * 3) + 2],
+                        model.vertices[(model.faces[index + 3] * 3) + 0],
+                        model.vertices[(model.faces[index + 3] * 3) + 1],
+                        model.vertices[(model.faces[index + 3] * 3) + 2],
+                        model.vertices[(model.faces[index + 2] * 3) + 0],
+                        model.vertices[(model.faces[index + 2] * 3) + 1],
+                        model.vertices[(model.faces[index + 2] * 3) + 2],
+                        model.vertices[(model.faces[index + 3] * 3) + 0],
+                        model.vertices[(model.faces[index + 3] * 3) + 1],
+                        model.vertices[(model.faces[index + 3] * 3) + 2],
+                        model.vertices[(model.faces[index + 1] * 3) + 0],
+                        model.vertices[(model.faces[index + 1] * 3) + 1],
+                        model.vertices[(model.faces[index + 1] * 3) + 2],
+                        model.vertices[(model.faces[index + 4] * 3) + 0],
+                        model.vertices[(model.faces[index + 4] * 3) + 1],
+                        model.vertices[(model.faces[index + 4] * 3) + 2]
+                        );
+                    this.normalData.push(
+                        model.normals[(model.faces[index + 9] * 3) + 0],
+                        model.normals[(model.faces[index + 9] * 3) + 1],
+                        model.normals[(model.faces[index + 9] * 3) + 2],
+                        model.normals[(model.faces[index + 11] * 3) + 0],
+                        model.normals[(model.faces[index + 11] * 3) + 1],
+                        model.normals[(model.faces[index + 11] * 3) + 2],
+                        model.normals[(model.faces[index + 10] * 3) + 0],
+                        model.normals[(model.faces[index + 10] * 3) + 1],
+                        model.normals[(model.faces[index + 10] * 3) + 2],
+                        model.normals[(model.faces[index + 11] * 3) + 0],
+                        model.normals[(model.faces[index + 11] * 3) + 1],
+                        model.normals[(model.faces[index + 11] * 3) + 2],
+                        model.normals[(model.faces[index + 9] * 3) + 0],
+                        model.normals[(model.faces[index + 9] * 3) + 1],
+                        model.normals[(model.faces[index + 9] * 3) + 2],
+                        model.normals[(model.faces[index + 12] * 3) + 0],
+                        model.normals[(model.faces[index + 12] * 3) + 1],
+                        model.normals[(model.faces[index + 12] * 3) + 2]
+                        );
+                    index += 13;
+                    this.triangleCount += 2;
+                    break;
                 case 32:
                     this.vertexData.push(
                         model.vertices[(model.faces[index + 1] * 3) + 0],
