@@ -5,7 +5,8 @@ import * as Engine from "../../ts/engine/engine";
 @Component({
     selector: 'game',
     template: require('./game.component.html'),
-    host: { '(window:keydown)': 'onKeyPress($event)' }
+    host: { '(window:keydown)': 'onKeyPress($event)',
+            '(window:click)': 'onKeyPress($event)' }
 })
 
 export class GameComponent implements AfterViewInit, OnDestroy {
@@ -26,9 +27,10 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     private axes: Engine.Primatives.Axes;
     private grid: Engine.Primatives.Grid;
     private boxes: Array<Engine.Primatives.Box>;
+    private rubbleBoxes: Array<Engine.Primatives.Box>;
     private colorFreq: number = 1;
     private travelX: boolean = false;
-    private offset: number = 0.02;
+    private offset: number = 0.04;
 
     private Start() {
         // Compile programs we need
@@ -36,15 +38,18 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.lightingProgram = this.view.CreateLightingProgram();
         // Initialise objects
         this.camera = new Engine.Camera();
-        this.camera.position = new Engine.Vector(3.5, 2.5, 3.5);
-        this.camera.target = new Engine.Vector(0, 1.5, 0);
+        this.camera.position = new Engine.Vector(2.5, 2.5, 2.5);
+        this.camera.target = new Engine.Vector(0, 1.2 , 0);
         // Instantiate objects
         this.background = new Engine.Primatives.Background(this.view);
         this.background.color1 = new Engine.Color(0.55, 0.72, 0.66);
         this.background.color2 = new Engine.Color(0.1, 0.55, 0.62);
         this.boxes = new Array<Engine.Primatives.Box>();
+        this.rubbleBoxes = new Array<Engine.Primatives.Box>();
 
-        this.boxes[0] = this.CreateBoxInstance(new Engine.Vector(0,-.5,0), new Engine.Vector(1,1.5,1));
+        this.colorFreq = Math.floor(Math.random() * 255) + 4;
+
+        this.boxes[0] = this.CreateBoxInstance(new Engine.Vector(0,-.8,0), new Engine.Vector(1,1.8,1));
         this.boxes[1] = this.CreateBoxInstance(new Engine.Vector(0,1.1,0), new Engine.Vector(1,0.1,1));
     }
 
@@ -61,6 +66,11 @@ export class GameComponent implements AfterViewInit, OnDestroy {
             if(tempBox.transform.position.z < -2 || tempBox.transform.position.z > 2) this.offset = -this.offset;
             tempBox.transform.position.z += this.offset;
         }
+
+        this.rubbleBoxes.forEach(rub => {
+            rub.transform.position.y -= 0.04;
+            if(rub.transform.position.y < 0) {}
+        });
     }
 
     private Render() {
@@ -72,6 +82,9 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.boxes.forEach(box => {
             this.view.DrawObject(box, this.lightingProgram, viewMatrix, projectionMatrix);
         });
+        this.rubbleBoxes.forEach(rub => {
+            this.view.DrawObject(rub, this.lightingProgram, viewMatrix, projectionMatrix);
+        }); 
     }
 
     // Get GameViewComponent from DOM
@@ -132,12 +145,13 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     }
 
     private onKeyPress(event: any) {
-        if(event.keyCode == 32)
+        if(event.keyCode == 32|| event.type == "click")
         {
             let previousBox: Engine.Primatives.Box = this.boxes[this.boxes.length - 2];
             let currentBox: Engine.Primatives.Box = this.boxes[this.boxes.length - 1];
             let xOffset = currentBox.transform.position.x - previousBox.transform.position.x;
             let zOffset = currentBox.transform.position.z - previousBox.transform.position.z;
+            let rubblePos: Engine.Vector, rubbleScale: Engine.Vector;
 
             let newScale = this.travelX ? currentBox.transform.scale.x - (Math.abs(xOffset) / 2) : currentBox.transform.scale.z - (Math.abs(zOffset) / 2);
 
@@ -145,15 +159,39 @@ export class GameComponent implements AfterViewInit, OnDestroy {
             {
                 currentBox.transform.scale = this.travelX ? new Engine.Vector(newScale,0.1,currentBox.transform.scale.z) : new Engine.Vector(currentBox.transform.scale.x, 0.1, newScale);
 
+                this.offset = Math.abs(this.offset);
                 if(this.travelX)
+                {
+                    rubblePos = new Engine.Vector(currentBox.transform.position.x + (xOffset / 2), currentBox.transform.position.y, 
+                        currentBox.transform.position.z);        
+                    rubbleScale = new Engine.Vector((Math.abs(xOffset) / 2), 0.1, currentBox.transform.scale.z);
                     currentBox.transform.position = new Engine.Vector(currentBox.transform.position.x + (-xOffset / 2), currentBox.transform.position.y ,currentBox.transform.position.z);
+
+                    this.boxes[this.boxes.length] = this.CreateBoxInstance(
+                        new Engine.Vector(currentBox.transform.position.x,  currentBox.transform.position.y + 0.2, -2), currentBox.transform.scale);
+                }
                 else
+                {
+                    rubblePos = new Engine.Vector(currentBox.transform.position.x, currentBox.transform.position.y, 
+                        currentBox.transform.position.z + (zOffset / 2));      
+                    rubbleScale = new Engine.Vector(currentBox.transform.scale.x, 0.1, (Math.abs(zOffset) / 2));
                     currentBox.transform.position = new Engine.Vector(currentBox.transform.position.x, currentBox.transform.position.y, currentBox.transform.position.z + (-zOffset / 2));
 
-                this.boxes[this.boxes.length] = this.CreateBoxInstance(
-                    new Engine.Vector(currentBox.transform.position.x,currentBox.transform.position.y + 0.2, currentBox.transform.position.z), currentBox.transform.scale);
-                this.camera.position.y += 0.2;
-                this.camera.target.y += 0.2;
+                    this.boxes[this.boxes.length] = this.CreateBoxInstance(
+                        new Engine.Vector(-2 ,currentBox.transform.position.y + 0.2, currentBox.transform.position.z), currentBox.transform.scale);
+                   
+                }
+                   
+                this.rubbleBoxes[this.rubbleBoxes.length] = this.CreateBoxInstance(rubblePos, rubbleScale);
+
+                this.colorFreq+=0.25;
+                this.travelX = !this.travelX;
+
+                this.camera.position.x = this.camera.position.z += 0.03 
+                this.camera.position.y = currentBox.transform.position.y + 1.5;
+                this.camera.target.y = currentBox.transform.position.y;
+                this.score++; 
+                if(this.score % 10 == 0) this.offset += 0.02; 
             }
             else
             {
@@ -169,13 +207,11 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         tempBox.transform.position = pos;
         tempBox.transform.scale = scale;
 
-        let red = (Math.sin(.1 * this.colorFreq + 0) * 230 + 55) / 255;
-        let green = (Math.sin(.2 * this.colorFreq + 2) * 230 + 55) / 255;
-        let blue = (Math.sin(.3 * this.colorFreq + 4) * 230 + 55) / 255;
+        let red = (Math.sin(.3 * this.colorFreq + 0) * 127 + 128) / 255;
+        let green = (Math.sin(.3 * this.colorFreq + 2) * 127 + 128) / 255;
+        let blue = (Math.sin(.3 * this.colorFreq + 4) * 127 + 128) / 255;
 
         tempBox.color = new Engine.Color(red, green, blue);
-        this.colorFreq+=0.25;
-        this.travelX = !this.travelX;
         return tempBox;
     }
 }
