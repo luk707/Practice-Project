@@ -1,6 +1,7 @@
 // TODO: Produce ordered list of top 5 scores using a database
-module.exports = function() {
-    return JSON.stringify([
+module.exports = function(production) {
+    return production ? getLeaderboardResults()
+        : JSON.stringify([
         {
             name: "bill",
             score: 15
@@ -23,3 +24,7 @@ module.exports = function() {
         }
     ]);
 };
+
+function getLeaderboardResults() {
+    return "{ error: \"Production not implemented\"}";
+}
