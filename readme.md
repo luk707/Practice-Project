@@ -1,10 +1,13 @@
-## practice-project
-> This project is generated with [generator-angular2-typescript](https://github.com/shibbir/generator-angular2-typescript) version 0.10.2.
+# practice-project
+
+An open source clone of the popular Stack game for iOS and Android
 
 ## Installation
 
 ```bash
+$ npm install
 $ npm install -g typescript
+$ npm install -g gulp
 $ npm start
 ```
 
@@ -13,15 +16,9 @@ $ npm start
 $ npm run build
 ```
 
-## Running Unit Tests
+## Producton Runtime
 ```bash
-$ npm test
-```
-
-## Running End-to-End Tests
-```bash
-# make sure you have a running app
-$ npm run e2e
+$ node app.js -p
 ```
 
 ## License
