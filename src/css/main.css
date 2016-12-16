@@ -8,8 +8,6 @@ html {
 }
 
 body {
-    display:table-cell;
-    vertical-align:middle;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -87,3 +85,38 @@ canvas {
     color: white;
     text-transform: capitalize;
 }
+
+.footerholder {
+    background: none repeat scroll 0 0 transparent;
+    bottom: 20px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+.header {
+    padding-bottom: 14px;
+}
+
+.Help-Title {
+    color: black;
+    font-size: 50px;
+}
+
+.underline {
+    color: black;
+}
+
+.SC-Title {
+    color: black;
+    font-size: 24px;
+}
+
+.help-text {
+    color: black;
+}
+
+
+
+
+
