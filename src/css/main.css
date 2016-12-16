@@ -94,6 +94,27 @@ canvas {
     width: 100%;
 }
 
+.header {
+    padding-bottom: 14px;
+}
+
+.Help-Title {
+    color: black;
+    font-size: 50px;
+}
+
+.underline {
+    color: black;
+}
+
+.SC-Title {
+    color: black;
+    font-size: 24px;
+}
+
+.help-text {
+    color: black;
+}
 
 
 
