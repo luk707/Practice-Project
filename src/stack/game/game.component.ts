@@ -1,12 +1,16 @@
 import {Component, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 import {GameViewComponent} from '../game-view/game-view.component';
 import * as Engine from "../../ts/engine/engine";
+import {ModalDirective} from "ng2-bootstrap";
+import {ComponentLoaderFactory} from "ng2-bootstrap/component-loader"
+import {PositioningService} from "ng2-bootstrap/positioning"
 
 @Component({
     selector: 'game',
     template: require('./game.component.html'),
     host: { '(window:keydown)': 'onKeyPress($event)',
-            '(window:click)': 'onKeyPress($event)' }
+            '(window:click)': 'onKeyPress($event)' },
+    providers: [ComponentLoaderFactory, PositioningService]
 })
 
 export class GameComponent implements AfterViewInit, OnDestroy {
@@ -33,6 +37,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     private offset: number = 0.04;
     private backgroundColorFreq = 0;
     private targetCameraHeight = 0;
+
+    @ViewChild('gameOverModal') public gameOverModal:ModalDirective;
 
     private Start() {
         // Compile programs we need
@@ -218,6 +224,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
             else
             {
                 //lose condition
+                this.gameOverModal.show();
             }
         }
     }

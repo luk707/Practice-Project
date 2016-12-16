@@ -9,6 +9,8 @@ import {GameViewComponent} from './game-view/game-view.component';
 import {GameComponent} from './game/game.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 
+import {Ng2BootstrapModule} from "ng2-bootstrap";
+
 @NgModule({
     declarations: [
         StackComponent,
@@ -21,7 +23,8 @@ import {LeaderboardComponent} from './leaderboard/leaderboard.component';
         BrowserModule,
         HttpModule,
         JsonpModule,
-        routing
+        routing,
+        Ng2BootstrapModule
     ],
     providers: [appRoutingProviders],
     bootstrap: [StackComponent]
