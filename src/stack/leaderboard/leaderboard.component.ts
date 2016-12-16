@@ -13,6 +13,7 @@ export class LeaderboardComponent {
             {name: "Bobby", score: 3},
             {name: "Barbara", score: 4}
         ];
+    //TODO: load these in from a database
 }
 
 class Score {
