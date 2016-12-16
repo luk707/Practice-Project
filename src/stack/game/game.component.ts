@@ -31,6 +31,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     private colorFreq: number = 1;
     private travelX: boolean = false;
     private offset: number = 0.04;
+    private backgroundColorFreq = 0;
+    private targetCameraHeight = 0;
 
     private Start() {
         // Compile programs we need
@@ -40,6 +42,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.camera = new Engine.Camera();
         this.camera.position = new Engine.Vector(2.5, 2.5, 2.5);
         this.camera.target = new Engine.Vector(0, 1.2 , 0);
+        this.camera.orphographic = true;
         // Instantiate objects
         this.background = new Engine.Primatives.Background(this.view);
         this.background.color1 = new Engine.Color(0.55, 0.72, 0.66);
@@ -48,9 +51,11 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.rubbleBoxes = new Array<Engine.Primatives.Box>();
 
         this.colorFreq = Math.floor(Math.random() * 255) + 4;
-
         this.boxes[0] = this.CreateBoxInstance(new Engine.Vector(0,-.8,0), new Engine.Vector(1,1.8,1));
+        this.colorFreq+=0.5;
         this.boxes[1] = this.CreateBoxInstance(new Engine.Vector(0,1.1,0), new Engine.Vector(1,0.1,1));
+        this.targetCameraHeight = this.boxes[1].transform.position.y;
+        this.backgroundColorFreq = this.colorFreq;
     }
 
     
@@ -71,12 +76,28 @@ export class GameComponent implements AfterViewInit, OnDestroy {
             rub.transform.position.y -= 0.04;
             if(rub.transform.position.y < 0) {}
         });
+
+        this.camera.position.y += (this.targetCameraHeight + 1.5 - this.camera.position.y) / 10;
+        this.camera.target.y += (this.targetCameraHeight - this.camera.target.y) / 10;
     }
 
     private Render() {
         let viewMatrix = this.camera.View();
         let projectionMatrix = this.camera.Projecttion();
         this.view.gl.clear(this.view.gl.COLOR_BUFFER_BIT | this.view.gl.DEPTH_BUFFER_BIT);
+        this.backgroundColorFreq += (this.colorFreq - this.backgroundColorFreq) / 10;
+        this.background.color1 = new Engine.Color(
+            (Math.sin(.3 * (this.backgroundColorFreq - 2) + 0) * 127 + 128) / 255,
+            (Math.sin(.3 * (this.backgroundColorFreq - 2) + 2) * 127 + 128) / 255,
+            (Math.sin(.3 * (this.backgroundColorFreq - 2) + 4) * 127 + 128) / 255,
+            1
+        );
+        this.background.color2 = new Engine.Color(
+            (Math.sin(.3 * (this.backgroundColorFreq + 2) + 0) * 127 + 128) / 255,
+            (Math.sin(.3 * (this.backgroundColorFreq + 2) + 2) * 127 + 128) / 255,
+            (Math.sin(.3 * (this.backgroundColorFreq + 2) + 4) * 127 + 128) / 255,
+            1
+        );
         this.view.DrawObject(this.background, this.basicProgram, viewMatrix, projectionMatrix);
         this.view.gl.clear(this.view.gl.DEPTH_BUFFER_BIT);
         this.boxes.forEach(box => {
@@ -184,13 +205,14 @@ export class GameComponent implements AfterViewInit, OnDestroy {
                    
                 this.rubbleBoxes[this.rubbleBoxes.length] = this.CreateBoxInstance(rubblePos, rubbleScale);
 
-                this.colorFreq+=0.25;
+                this.colorFreq+=0.5;
                 this.travelX = !this.travelX;
 
-                this.camera.position.x = this.camera.position.z += 0.03 
-                this.camera.position.y = currentBox.transform.position.y + 1.5;
-                this.camera.target.y = currentBox.transform.position.y;
-                this.score++; 
+                this.camera.position.x = this.camera.position.z += 0.03;
+                this.score++;
+
+                this.targetCameraHeight = currentBox.transform.position.y;
+
                 if(this.score % 10 == 0) this.offset += 0.02; 
             }
             else
