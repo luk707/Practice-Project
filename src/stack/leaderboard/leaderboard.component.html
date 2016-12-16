@@ -1,4 +1,24 @@
-<div>
-    <h1>Leaderboard</h1>
-    <a routerLink="/">back</a>
+<div class="container-fluid">
+    <a routerLink="/">
+        Back
+    </a>
+    <h1>Leaderboards</h1>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let record of leaderboard; let i = index;">
+                    <td>{{i + 1}}</td>
+                    <td>{{record.name}}</td>
+                    <td>{{record.score}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

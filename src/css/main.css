@@ -8,8 +8,6 @@ html {
 }
 
 body {
-    display:table-cell;
-    vertical-align:middle;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -86,4 +84,36 @@ canvas {
     font-size: 100px;
     color: white;
     text-transform: capitalize;
+}
+
+.table {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+    color: #1C1CE6;
+    padding: 8px;
+}
+
+td {
+    padding: 8px;
+    color: #1C91E6;
+}
+
+tr:nth-child(even) {
+    background-color: #D3E3E3;
+}
+
+tr:hover {
+    background-color: black;
+}
+
+h1 {
+    text-align:center;
+}
+
+.container-fluid, .row {
+    margin:20px; 
+    padding:10px;
 }
