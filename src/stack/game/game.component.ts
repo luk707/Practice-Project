@@ -58,7 +58,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
         this.colorFreq = Math.floor(Math.random() * 255) + 4;
         this.boxes[0] = this.CreateBoxInstance(new Engine.Vector(0,-.8,0), new Engine.Vector(1,1.8,1));
-        this.colorFreq+=0.5;
+        this.colorFreq+=1;
         this.boxes[1] = this.CreateBoxInstance(new Engine.Vector(0,1.1,0), new Engine.Vector(1,0.1,1));
         this.targetCameraHeight = this.boxes[1].transform.position.y;
         this.backgroundColorFreq = this.colorFreq;
@@ -211,7 +211,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
                    
                 this.rubbleBoxes[this.rubbleBoxes.length] = this.CreateBoxInstance(rubblePos, rubbleScale);
 
-                this.colorFreq+=0.5;
+                this.colorFreq+=1;
                 this.travelX = !this.travelX;
 
                 this.camera.position.x = this.camera.position.z += 0.03;
