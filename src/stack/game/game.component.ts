@@ -25,6 +25,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     private axes: Engine.Primatives.Axes;
     private grid: Engine.Primatives.Grid;
     private box: Engine.Primatives.Box;
+    private monkey: Engine.Model;
 
     private Start() {
         // Compile programs we need
@@ -39,6 +40,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.axes = new Engine.Primatives.Axes();
         this.grid = new Engine.Primatives.Grid(4);
         this.box = new Engine.Primatives.Box(this.view.gl);
+        this.monkey = new Engine.Model(require("../../models/dice"), this.view.gl);
         // Set position and scale of the box
         this.box.transform.position = new Engine.Vector(1, 0, 0);
         this.box.transform.scale = new Engine.Vector(1, 1, 2);
@@ -48,7 +50,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         // Set the camera position
         this.camera.position = new Engine.Vector(
             Math.sin(this.time / 500) * 5 ,
-            2,
+            0,
             Math.cos(this.time / 500) * 5);
             //noone loves tan feelsbadman ;-;
     }
@@ -59,10 +61,11 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.view.gl.clear(this.view.gl.COLOR_BUFFER_BIT | this.view.gl.DEPTH_BUFFER_BIT);
         this.view.DrawObject(this.background, this.basicProgram, viewMatrix, projectionMatrix);
         this.view.gl.clear(this.view.gl.DEPTH_BUFFER_BIT);
-        this.view.DrawObject(this.box, this.lightingProgram, viewMatrix, projectionMatrix);
-        this.view.DrawObject(this.grid, this.basicProgram, viewMatrix, projectionMatrix);
-        this.view.gl.clear(this.view.gl.DEPTH_BUFFER_BIT);
-        this.view.DrawObject(this.axes, this.basicProgram, viewMatrix, projectionMatrix);
+        this.view.DrawObject(this.monkey, this.lightingProgram, viewMatrix, projectionMatrix);
+        //this.view.DrawObject(this.box, this.lightingProgram, viewMatrix, projectionMatrix);
+        //this.view.DrawObject(this.grid, this.basicProgram, viewMatrix, projectionMatrix);
+        //this.view.gl.clear(this.view.gl.DEPTH_BUFFER_BIT);
+        //this.view.DrawObject(this.axes, this.basicProgram, viewMatrix, projectionMatrix);
     }
 
     // Get GameViewComponent from DOM
