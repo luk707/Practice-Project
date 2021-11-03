@@ -3,6 +3,7 @@ import {Drawable} from "./drawable";
 import {Transform} from "./transform";
 import {Matrix} from "./matrix";
 import {Color} from "./color";
+import {Model} from "./model";
 import {Camera} from "./camera";
 import * as Primatives from "./primatives/primatives";
 
@@ -13,7 +14,8 @@ export {
     Matrix,
     Primatives,
     Color,
-    Camera
+    Camera,
+    Model
 };
 
 
@@ -134,10 +136,10 @@ export class GameView {
             [0.1, 0.1, 0.1, 1.0]);
         this.gl.uniform4fv(
             this.gl.getUniformLocation(lightingProgram, "light1c"),
-            [0.85, 0.85, 0.85, 1.0]);
+            [0.95, 0.65, 0.95, 1.0]);
         this.gl.uniform4fv(
             this.gl.getUniformLocation(lightingProgram, "light2c"),
-            [0.25, 0.25, 0.25, 1.0]);
+            [0.25, 0.45, 0.25, 1.0]);
 
         return lightingProgram;
     }
