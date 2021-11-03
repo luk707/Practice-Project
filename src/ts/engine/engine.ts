@@ -24,8 +24,8 @@ export class GameView {
     constructor(public canvas: HTMLCanvasElement) {
 
         this.gl =
-            canvas.getContext("webgl") ||
-            canvas.getContext("experimental-webgl");
+            canvas.getContext("webgl", { antialias: false }) ||
+            canvas.getContext("experimental-webgl", { antialias: false });
 
         if (this.gl) {
             this.gl.clearColor(0.0, 0.0, 0.0, 0.0);
